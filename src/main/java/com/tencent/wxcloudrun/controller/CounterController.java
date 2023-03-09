@@ -49,9 +49,11 @@ public class CounterController {
 @PostMapping(value = "/api/testCreate")
 String testCreate(@RequestHeader Map<String, String> header,
    @RequestBody CounterRequest request) {
-   for (Map.Entry<String, String> entry : header.entrySet()) {
-            logger.info("/api/count post header, key: " + entry.getKey() + ", value: " + entry.getValue());
-    }
+  StringBuffer sb = new StringBuffer();
+  for (Map.Entry<String, String> entry : header.entrySet()) {
+    sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");   
+  }
+  logger.info("/api/count post header, header: {}", sb.toString());
   logger.info("/api/count post request, action: {}", request.getAction());
   return "success";
 }
