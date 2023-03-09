@@ -24,7 +24,7 @@ import java.util.List;
 public class CounterController {
 
   final CounterService counterService;
-  final Logger logger;
+  final java.util.logging.Logger logger;
 
   public CounterController(@Autowired CounterService counterService) {
     this.counterService = counterService;
@@ -47,6 +47,14 @@ public class CounterController {
 
     return ApiResponse.ok(count);
   }
+
+@PostMapping(value = "/api/testCreate")
+String testCreate(@RequestHeader Map<String, String> header,
+   @RequestBody CounterRequest request) {
+  logger.info("/api/count post header, header: {}" ,header);
+  logger.info("/api/count post request, action: {}", request.getAction());
+  return "success";
+}
 
 
   /**
