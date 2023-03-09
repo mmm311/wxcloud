@@ -22,7 +22,7 @@ import java.util.Map;
 public class CounterController {
 
   final CounterService counterService;
-  final java.util.logging.Logger logger;
+  final Logger logger;
 
   public CounterController(@Autowired CounterService counterService) {
     this.counterService = counterService;
