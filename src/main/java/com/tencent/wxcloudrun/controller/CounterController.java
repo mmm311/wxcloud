@@ -9,10 +9,9 @@ import com.tencent.wxcloudrun.service.CounterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * counter控制器
@@ -46,17 +45,17 @@ public class CounterController {
     return ApiResponse.ok(count);
   }
 
-@PostMapping(value = "/api/testCreate")
-String testCreate(@RequestHeader Map<String, String> header,
-   @RequestBody CounterRequest request) {
-  StringBuffer sb = new StringBuffer();
-  for (Map.Entry<String, String> entry : header.entrySet()) {
-    sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");   
-  }
-  logger.info("/api/count post header, header: {}", sb.toString());
-  logger.info("/api/count post request, action: {}", request.getAction());
-  return "success";
-}
+  @PostMapping(value = "/api/testCount")
+    String testCreate(HttpServletRequest servletRequest, @RequestHeader Map<String, String> header, @RequestBody CounterRequest request) {
+        logger.info("uri=" + servletRequest.getRequestURL());
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry<String, String> entry : header.entrySet()) {
+            stringBuilder.append(entry.getKey()).append("=").append(entry.getValue());
+        }
+        logger.info("header=" + stringBuilder);
+        logger.info("/api/count post request, action: {}", request.getAction());
+        return "success";
+    }
 
 
   /**
